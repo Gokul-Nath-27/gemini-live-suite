@@ -10,7 +10,7 @@ import { AudioRecorder } from "@/lib/audio-recorder";
 import { GenAILiveClient } from "@/lib/genai-live-client";
 import { cn } from "@/lib/utils";
 import { MonitorUp, MonitorX, Pause, Play, Video, VideoOff } from "lucide-react";
-import { memo, ReactNode, RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { memo, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // --- Constants ---
 const AUDIO_MIME_TYPE = "audio/pcm;rate=16000";
@@ -59,7 +59,7 @@ MediaStreamButton.displayName = "MediaStreamButton";
  */
 function useAudioProcessor(
   connected: boolean,
-  client: any, // Replace 'any' with the actual type of 'client' from useLiveAPIContext
+  client: GenAILiveClient, // Use the specific client type
   muted: boolean
 ) {
   const [audioRecorder] = useState(() => new AudioRecorder());
@@ -126,9 +126,10 @@ const VideoFrameProcessor = ({
       videoRef.current.srcObject = activeVideoStream;
     }
     // Cleanup: remove srcObject when component unmounts or stream changes to null
+    const localVideoRef = videoRef.current;
     return () => {
-      if (videoRef.current && videoRef.current.srcObject === activeVideoStream && activeVideoStream === null) {
-        videoRef.current.srcObject = null;
+      if (localVideoRef && localVideoRef.srcObject === activeVideoStream && activeVideoStream === null) {
+        localVideoRef.srcObject = null;
       }
     };
   }, [activeVideoStream, videoRef]);
@@ -219,10 +220,10 @@ function useStreamSwitcher(
   const [activeStreamSource, setActiveStreamSource] = useState<"webcam" | "screen" | null>(null);
   const [activeMediaStream, setActiveMediaStream] = useState<MediaStream | null>(null);
 
-  const allStreams = {
+  const allStreams = useMemo(() => ({
     webcam: webcamHook,
     screen: screenCaptureHook,
-  };
+  }), [webcamHook, screenCaptureHook]);
 
   const switchStream = useCallback(async (newSource: "webcam" | "screen" | null) => {
     // Stop current active stream if it's different from the new source or if new source is null

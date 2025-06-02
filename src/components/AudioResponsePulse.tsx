@@ -135,7 +135,7 @@ const drawSphere = (
   // Deformation parameters
   const numDeformationPoints = 70; // More points for smoother deformation
   // Magnitude of deformation - more pronounced with volume and activity
-  let deformationMagnitude = (canvasWidth * 0.015) + currentVolume * (canvasWidth * 0.15)
+  const deformationMagnitude = (canvasWidth * 0.015) + currentVolume * (canvasWidth * 0.15)
 
   // Frequency of "lobes" or waves - changes with volume for more dynamism
   const deformationFrequency1 = 4 + Math.floor(currentVolume * 4)
