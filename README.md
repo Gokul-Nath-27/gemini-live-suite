@@ -1,36 +1,230 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gemini Live API Voice Interface
 
-## Getting Started
+A real-time voice conversation interface built with Next.js that leverages Google's Gemini Live API for natural, interrupt-capable AI interactions. Experience human-like conversations with sub-100ms latency and advanced audio processing.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Real-time Voice Conversations**: Stream audio directly to and from Gemini AI
+- **Interrupt Capability**: Naturally interrupt AI responses like human conversations
+- **Low Latency**: Sub-100ms response times with optimized audio pipelines
+- **Text & Voice Input**: Dual input modes for flexible interaction
+- **Volume Visualization**: Real-time audio level monitoring with visual feedback
+- **Production Ready**: Enterprise-grade architecture with comprehensive error handling
+- **Responsive Design**: Mobile-friendly interface with modern UI components
+
+## 🏗️ Architecture Overview
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   React UI      │    │   Audio Engine   │    │  Gemini Live    │
+│                 │    │                  │    │      API        │
+│ • Text Input    │◄──►│ • AudioStreamer  │◄──►│                 │
+│ • Voice Button  │    │ • AudioWorklet   │    │ • WebSocket     │
+│ • Volume Meter  │    │ • Volume Monitor │    │ • Streaming     │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js 14+ with App Router
+- **Language**: TypeScript for end-to-end type safety
+- **Styling**: Tailwind CSS with custom components
+- **Audio**: Web Audio API with AudioWorklet processing
+- **AI Integration**: Google Gemini Live API
+- **State Management**: React Context with custom hooks
+- **Real-time Communication**: WebSocket connections
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Prerequisites
 
-## Learn More
+- Node.js 18+
+- npm or yarn package manager
+- Modern browser with Web Audio API support
+- Google AI Studio API key
+- Microphone and speaker access
 
-To learn more about Next.js, take a look at the following resources:
+## Quick Start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Clone the Repository
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+git clone https://github.com/Gokul-Nath-27/gemini-live-suite
+cd gemini-live-suite
+```
 
-## Deploy on Vercel
+### 2. Install Dependencies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm i
+# or
+npm i
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Environment Setup
+
+Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_LIVE_API_KEY=your_gemini_api_key_here
+```
+
+> **Get your API key**: Visit [Google AI Studio](https://aistudio.google.com/) to generate your Gemini API key.
+
+### 4. Run Development Server
+
+```bash
+pnpm dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### 5. Start Conversation
+
+1. **Grant Permissions**: Allow microphone access when prompted
+2. **Connect**: Click the connect button to establish WebSocket connection
+3. **Interact**: Use text input or voice button to start conversation
+4. **Interrupt**: Speak naturally to interrupt AI responses
+
+## 🔧 Configuration
+
+### API Configuration
+
+Modify the Live API configuration in `src/hooks/use-live-api.ts`:
+
+```typescript
+const [config, setConfig] = useState<LiveConnectConfig>({
+  tools: [{ googleSearch: {} }], // Enable Google Search
+  // Add more configuration options
+});
+```
+
+### Model Selection
+
+Change the default model:
+
+```typescript
+const [model, setModel] = useState<string>("models/gemini-2.0-flash-exp");
+```
+
+### Audio Settings
+
+Customize audio processing in `src/lib/utils.ts`:
+
+```typescript
+export const audioContext: (
+  options?: GetAudioContextOptions
+) => Promise<AudioContext>;
+```
+
+
+## 🔊 Audio Processing Pipeline
+
+### AudioStreamer Class
+
+- **PCM16 Decoding**: Converts Gemini's audio format
+- **Real-time Playback**: Zero-latency audio rendering
+- **Buffer Management**: Efficient audio buffer handling
+
+### AudioWorklet Integration
+
+- **Volume Monitoring**: Real-time audio level analysis
+- **Dedicated Thread**: Off-main-thread audio processing
+- **Visual Feedback**: Dynamic volume visualization
+
+### Audio Context Management
+
+- **Singleton Pattern**: Efficient AudioContext reuse
+- **Browser Compliance**: Handles autoplay policies
+- **Cross-browser Support**: Fallback mechanisms
+
+## API Integration
+
+### WebSocket Connection
+
+- **Real-time Communication**: Bidirectional streaming
+- **Connection Management**: Automatic reconnection
+- **Error Handling**: Graceful failure recovery
+
+### Gemini Live API Features
+
+- **Streaming Audio**: Real-time voice processing
+- **Context Awareness**: 32,768 token context window
+- **Tool Integration**: Google Search capabilities
+- **Interrupt Handling**: Natural conversation flow
+
+## 🚀 Performance Optimization
+
+### Audio Performance
+
+- **AudioWorklet Threading**: Off-main-thread processing
+- **Buffer Optimization**: Efficient memory management
+- **Stream Processing**: Minimal latency audio pipeline
+
+### Network Efficiency
+
+- **Connection Reuse**: Persistent WebSocket connections
+- **Binary Protocol**: Efficient audio transmission
+
+### Test Audio Functionality
+
+1. **Microphone Test**: Check browser permissions
+2. **Speaker Test**: Verify audio output
+3. **Connection Test**: Test WebSocket connectivity
+4. **Latency Test**: Measure response times
+
+## Production Deployment
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+### Environment Variables
+
+```env
+GOOGLE_GENAI_API_KEY=your_production_api_key
+NEXT_PUBLIC_API_URL=your_api_endpoint
+```
+
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Audio Not Working**
+
+- Check browser microphone permissions
+- Verify AudioContext creation
+- Test with different browsers
+
+**Connection Failures**
+
+- Validate API key configuration
+- Check network connectivity
+- Review WebSocket connection logs
+
+**Performance Issues**
+
+- Monitor audio buffer sizes
+- Check CPU usage during audio processing
+- Optimize AudioWorklet performance
+
+### Debug Mode
+
+Enable debug logging:
+
+```typescript
+const client = new GenAILiveClient({
+  ...options,
+  debug: true,
+});
+```
+
+---
+
+**Built with ❤️ using Next.js and Google Gemini Live API**
+
+_Experience the future of AI conversation today._
