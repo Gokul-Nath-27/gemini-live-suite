@@ -34,58 +34,6 @@ A real-time voice conversation interface built with Next.js that leverages Googl
 - **State Management**: React Context with custom hooks
 - **Real-time Communication**: WebSocket connections
 
-## Prerequisites
-
-- Node.js 18+
-- npm or yarn package manager
-- Modern browser with Web Audio API support
-- Google AI Studio API key
-- Microphone and speaker access
-
-## Quick Start
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/Gokul-Nath-27/gemini-live-suite
-cd gemini-live-suite
-```
-
-### 2. Install Dependencies
-
-```bash
-pnpm i
-# or
-npm i
-```
-
-### 3. Environment Setup
-
-Create a `.env.local` file in the root directory:
-
-```env
-NEXT_PUBLIC_LIVE_API_KEY=your_gemini_api_key_here
-```
-
-> **Get your API key**: Visit [Google AI Studio](https://aistudio.google.com/) to generate your Gemini API key.
-
-### 4. Run Development Server
-
-```bash
-pnpm dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### 5. Start Conversation
-
-1. **Grant Permissions**: Allow microphone access when prompted
-2. **Connect**: Click the connect button to establish WebSocket connection
-3. **Interact**: Use text input or voice button to start conversation
-4. **Interrupt**: Speak naturally to interrupt AI responses
-
 ## 🔧 Configuration
 
 ### API Configuration
@@ -172,6 +120,58 @@ export const audioContext: (
 2. **Speaker Test**: Verify audio output
 3. **Connection Test**: Test WebSocket connectivity
 4. **Latency Test**: Measure response times
+
+## Prerequisites
+
+- Node.js 18+
+- npm or yarn package manager
+- Modern browser with Web Audio API support
+- Google AI Studio API key
+- Microphone and speaker access
+
+## Quick Start
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Gokul-Nath-27/gemini-live-suite
+cd gemini-live-suite
+```
+
+### 2. Install Dependencies
+
+```bash
+pnpm i
+# or
+npm i
+```
+
+### 3. Environment Setup
+
+Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_LIVE_API_KEY=your_gemini_api_key_here
+```
+
+> **Get your API key**: Visit [Google AI Studio](https://aistudio.google.com/) to generate your Gemini API key.
+
+### 4. Run Development Server
+
+```bash
+pnpm dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### 5. Start Conversation
+
+1. **Grant Permissions**: Allow microphone access when prompted
+2. **Connect**: Click the connect button to establish WebSocket connection
+3. **Interact**: Use text input or voice button to start conversation
+4. **Interrupt**: Speak naturally to interrupt AI responses
 
 ## Production Deployment
 
