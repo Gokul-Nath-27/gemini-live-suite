@@ -1,3 +1,6 @@
+import clsx, { ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export type GetAudioContextOptions = AudioContextOptions & {
   id?: string;
 };
@@ -55,4 +58,13 @@ export function base64ToArrayBuffer(base64: string) {
     bytes[i] = binaryString.charCodeAt(i);
   }
   return bytes.buffer;
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+function difference<T>(array: T[], ...values: T[][]): T[] {
+  const excludeSet = new Set(values.flat());
+  return array.filter(item => !excludeSet.has(item));
 }
