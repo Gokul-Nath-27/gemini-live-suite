@@ -9,8 +9,7 @@ A real-time voice conversation interface built with Next.js that leverages Googl
 - **Low Latency**: Sub-100ms response times with optimized audio pipelines
 - **Text & Voice Input**: Dual input modes for flexible interaction
 - **Volume Visualization**: Real-time audio level monitoring with visual feedback
-- **Production Ready**: Enterprise-grade architecture with comprehensive error handling
-- **Responsive Design**: Mobile-friendly interface with modern UI components
+- **Worklets Integration**: Advanced audio processing using AudioWorklets for real-time performance
 
 ## 🏗️ Architecture Overview
 
