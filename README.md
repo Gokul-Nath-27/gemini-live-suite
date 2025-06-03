@@ -181,36 +181,6 @@ npm run build
 npm start
 ```
 
-### Environment Variables
-
-```env
-GOOGLE_GENAI_API_KEY=your_production_api_key
-NEXT_PUBLIC_API_URL=your_api_endpoint
-```
-
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-**Audio Not Working**
-
-- Check browser microphone permissions
-- Verify AudioContext creation
-- Test with different browsers
-
-**Connection Failures**
-
-- Validate API key configuration
-- Check network connectivity
-- Review WebSocket connection logs
-
-**Performance Issues**
-
-- Monitor audio buffer sizes
-- Check CPU usage during audio processing
-- Optimize AudioWorklet performance
-
 ### Debug Mode
 
 Enable debug logging:
